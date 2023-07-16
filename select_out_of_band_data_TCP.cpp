@@ -1,12 +1,12 @@
 #include<iostream>
 using namespace std;
-#include<sys/socket.h>
-#include<arpa/inet.h>
-#include<stdlib.h>
-#include<assert.h>
-#include<sys/select.h>
-#include<string.h>
-#include<unistd.h>
+#include<sys/socket.h>//socket、bind、listen、accept、recv、send 
+#include<arpa/inet.h>//inet_pton、inet_ntop、htons、ntohs
+#include<stdlib.h>//atoi 
+#include<assert.h>//assert 
+#include<sys/select.h>//select 
+#include<string.h>//basename、memset 
+#include<unistd.h>//close
 
 int 
 main(int argc, char* argv[]) {
@@ -37,22 +37,22 @@ main(int argc, char* argv[]) {
 	assert(connfd != -1);
 
 	char buf[1024];
-	fd_set rset;
+	fd_set rset;//创建集合
 	fd_set xset;
-	FD_ZERO(&rset);
+	FD_ZERO(&rset);//清空
 	FD_ZERO(&xset);
 
 	while(1) {
 		memset(buf, '\0', sizeof(buf));
-		FD_SET(connfd, &rset);
-		FD_SET(connfd, &xset);
-		ret = select(connfd + 1, &rset, NULL, &xset, NULL);
+		FD_SET(connfd, &rset);//加入
+		FD_SET(connfd, &xset);//加入
+		ret = select(connfd + 1, &rset, NULL, &xset, NULL);//用select检验文件描述符connfd的变化情况
 		if (ret < 0) {
 			cout << "selset failure" << endl;
 			break;
 		}	
 		if (FD_ISSET(connfd, &rset)) {
-			ret = recv(connfd, buf, sizeof(buf) - 1, 0);
+			ret = recv(connfd, buf, sizeof(buf) - 1, 0);//返回值为接收数据长度
 			if (ret < 0) break;
 			cout << "get" << ret << "bytes of normal data:" << buf << endl;
 		}
