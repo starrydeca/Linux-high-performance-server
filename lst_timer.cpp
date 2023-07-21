@@ -1,4 +1,4 @@
-#include "lst_timer.hpp"
+#include "lst_timer.h"
 #include <iostream>
 using namespace std;
 
