@@ -39,8 +39,59 @@ class processpool {
         static processpool<T>* m_instance;
     private:
         processpool(int listenfd, int process_number = 8);
-        ~processpool() {
-            delete[] m_sub_process;
+    public:
+        static processpool< T >* create(int listenfd, int process_number = 8) {
+            if (!m_instance)    m_instance = new processpool< T >(listenfd, process_number);
+            return m_instance;
         }
-        void run();
+        ~processpool(){
+            delete[] m_sub_process;
+        } 
+        void run(){
+            if(m_idx != -1) {
+                run_child();
+                return ;
+            }
+            run_parent();
+        }
 };
+
+static int sig_pipefd[2];
+
+static int setnonblocking(int fd) {
+    int flag = fcntl(fd, F_GETFL);
+    flag |= O_NONBLOCK;
+    flag = fcntl(fd, F_SETFL, flag);
+    return flag;
+}
+
+static void addfd(int epollfd, int fd) {
+    epoll_event event;
+    event.data.fd = fd;
+    event.events = EPOLLIN | EPOLLET;
+    epoll_ctl(epollfd, EPOLL_CTL_ADD, fd, &event);
+    setnonblocking(fd);
+}
+
+static void removefd(int epollfd, int fd) {
+    epoll_ctl(epollfd, EPOLL_CTL_DEL, fd, 0);
+    close(fd);
+}
+
+static void sig_hangler(int sig) {
+    int save_errno = errno;
+    int msg = sig;
+    send(sig_pipefd[1], (char*)&msg, 1, 0);
+    errno = save_errno;
+}
+
+static void addsig(int sig, void(handler)(int), bool restart = true) {
+    struct sigaction sa;
+    memset(&sa, '\0', sizeof(sa));
+    sa.sa_handler = handler;
+    if (restart) {
+        sa.sa_flags |= SA_RESTART;
+    }
+    sigfillset(&sa.sa_mask);
+    assert(sigaction(sig, &sa, NULL));
+}
