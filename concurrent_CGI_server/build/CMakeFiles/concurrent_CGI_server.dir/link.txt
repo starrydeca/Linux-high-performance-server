@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/concurrent_CGI_server.dir/src/concurrent_CGI_server.cpp.o -o /home/starsdecade/文档/Linux-high-performance-server/concurrent_CGI_server/concurrent_CGI_server 

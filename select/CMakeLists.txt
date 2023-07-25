@@ -1,0 +1,5 @@
+cmake_minimum_required(VERSION 3.15)
+project(select_out_of_band_data_TCP)
+aux_source_directory(${PROJECT_SOURCE_DIR} SRC)
+set(EXECUTABLE_OUTPUT_PATH ..)
+add_executable(select_out_of_band_data_TCP ${SRC})

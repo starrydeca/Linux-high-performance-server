@@ -1,0 +1,4 @@
+cmake_minimum_required(VERSION 3.15)
+aux_source_directory(${PROJECT_SOURCE_DIR} SRC)
+set(EXECUTABLE_OUTPUT_PATH ..)
+add_executable(epoll_ETandLT ${SRC})

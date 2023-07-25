@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/poll_client.dir/poll_client.cpp.o -o /home/starsdecade/文档/Linux-high-performance-server/poll/client/poll_client 

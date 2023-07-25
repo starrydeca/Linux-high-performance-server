@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/testaccept.dir/testaccept.cpp.o -o /home/starsdecade/文档/Linux-high-performance-server/test/testaccept 

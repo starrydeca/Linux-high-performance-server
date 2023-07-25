@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/poll_server.dir/poll_server.cpp.o -o /home/starsdecade/文档/Linux-high-performance-server/poll/server/poll_server 
