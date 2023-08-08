@@ -1,0 +1,3 @@
+/home/starsdecade/文档/Linux-high-performance-server/simpleHttp/build/CMakeFiles/simpleServer.dir
+/home/starsdecade/文档/Linux-high-performance-server/simpleHttp/build/CMakeFiles/edit_cache.dir
+/home/starsdecade/文档/Linux-high-performance-server/simpleHttp/build/CMakeFiles/rebuild_cache.dir

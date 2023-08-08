@@ -1,6 +1,6 @@
 #项目配置
 cmake_minimum_required(VERSION 3.0)
-project(database_connect_pool)
+project(simpleServer)
 
 #指定c++ 20
 set(CMAKE_CXX_STANDARD 20)
@@ -19,9 +19,9 @@ SET(CMAKE_CXX_FLAGS_DEBUG "$ENV{CXXFLAGS} -O0 -Wall -g2 -ggdb")
 SET(CMAKE_CXX_FLAGS_RELEASE "$ENV{CXXFLAGS} -O3 -Wall")
 
 #输出可执行文件
-add_executable(database_connect_pool ${SRC})
+add_executable(simpleServer ${SRC})
 
 #将可执行文件链接动态库，使用jsoncpp
-target_link_libraries(database_connect_pool jsoncpp)
+target_link_libraries(simpleServer jsoncpp)
 #将可执行文件链接动态库，使用mysqlclient
-target_link_libraries(database_connect_pool libmysqlclient.so)
+target_link_libraries(simpleServer libmysqlclient.so)

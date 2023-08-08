@@ -1,0 +1,14 @@
+[
+{
+  "directory": "/home/starsdecade/文档/Linux-high-performance-server/simpleHttp/build",
+  "command": "/usr/bin/c++  -I/home/starsdecade/文档/Linux-high-performance-server/simpleHttp/include  -O0 -Wall -g2 -ggdb -std=gnu++20 -o CMakeFiles/simpleServer.dir/src/main.cpp.o -c /home/starsdecade/文档/Linux-high-performance-server/simpleHttp/src/main.cpp",
+  "file": "/home/starsdecade/文档/Linux-high-performance-server/simpleHttp/src/main.cpp",
+  "output": "CMakeFiles/simpleServer.dir/src/main.cpp.o"
+},
+{
+  "directory": "/home/starsdecade/文档/Linux-high-performance-server/simpleHttp/build",
+  "command": "/usr/bin/c++  -I/home/starsdecade/文档/Linux-high-performance-server/simpleHttp/include  -O0 -Wall -g2 -ggdb -std=gnu++20 -o CMakeFiles/simpleServer.dir/src/server.cpp.o -c /home/starsdecade/文档/Linux-high-performance-server/simpleHttp/src/server.cpp",
+  "file": "/home/starsdecade/文档/Linux-high-performance-server/simpleHttp/src/server.cpp",
+  "output": "CMakeFiles/simpleServer.dir/src/server.cpp.o"
+}
+]
