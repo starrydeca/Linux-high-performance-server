@@ -37,3 +37,7 @@ const char* getFileType(const char* name);
 
 //发送目录
 int sendDir(const char* dirName, int cfd);
+
+//中文问题
+int hexToDec(char c);
+void decodeMsg(char* to, char* from);
