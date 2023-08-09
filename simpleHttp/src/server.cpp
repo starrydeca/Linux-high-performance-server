@@ -130,6 +130,7 @@ int parseRequestLine(const char* line, int cfd) {
     sscanf(line, "%[^ ] %[^ ]", method, path);
     cout << "method:" << method << "path:" << path << endl;
     if (strcasecmp(method, "get") != 0) return -1;
+    decodeMsg(path, path);
     //处理客户端请求的静态资源（目录或者文件)
     char* file = NULL;
     if (strcmp(path, "/") == 0) {
@@ -174,8 +175,11 @@ int sendFile(const char* fileName, int cfd) {
         else perror("send");
     }
 #else
+    off_t offset = 0;
     int fileSize = lseek(fd, 0, SEEK_END);
-    sendfile(cfd, fd, NULL, fileSize);
+    lseek(fd, 0, SEEK_SET);
+    while (offset < fileSize)
+        sendfile(cfd, fd, NULL, fileSize);
 #endif
     close(fd);
     return 0;
@@ -259,4 +263,33 @@ int sendDir(const char* dirName, int cfd) {
     send(cfd, buf, strlen(buf), 0);
     free(namelist);
     return 0;
+}
+
+//将字符转换为整形数
+int hexToDec(char c) {
+    if (c >= '0' && c <= '9')
+        return c - '0';
+    if (c >= 'a' && c <= 'f')
+        return c - 'a' + 10;
+    if ('A' && c <= 'F')
+        return c - 'A' + 10;
+
+    return 0;
+}
+
+//解码
+//to 存储解码之后的数据，传出参数，from被解码的数据，传入参数
+void decodeMsg(char* to, char* from) {
+    for(; *from != '\0'; to++, from++) {
+        // isxdigit -> 判断字符是不是16进制格式，取值在0-f
+        if (from[0] == '%' && isdigit(from[1]) && isxdigit(from[2])) {
+            //将16进制的数->十进制 将这个数值赋给字符
+            //B2 == 178
+            //将3个字符，变成一个字符1,这个字符1就是原始数据
+            *to = hexToDec(from[1] * 16 + hexToDec(from[2]));
+            //跳过from[1]和from[2]因此在当前循环中已经处理过了
+            from += 2;
+        }else *to = *from;
+
+    }
 }
